@@ -1,8 +1,16 @@
-var express = require('express');
-var app = express();
-const port = 5000
+const express = require('express');
+
+const mongoConnection = require('./mongoConnection');
+
+const app = express();
+const PORT = 3000;
 
 
-app.listen(port,() => {
-    console.log(`App listening on ${port}`);
-});
+
+mongoConnection.connect()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`Server is running on http://localhost:${PORT}`);
+    });
+  })
+  .catch(console.error);
